@@ -184,20 +184,21 @@
                     });
             }
     
-            window.gmcallback_loginWithGoogle = function() {
-                console.log("loginWithGoogle function called");
+            window.gmcallback = function() {
+                console.log("gmcallback function called");
                 var provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider).then((result) => {
+                    var token = result.credential.accessToken;
                     var user = result.user;
-                    console.log("Google login successful:", user);
+                    console.log("gmcallback: Google login successful:", user);
                     if (typeof window.gml_Script_gmcallback_google_signin !== "undefined") {
-                        console.log("Calling back to GameMaker");
+                        console.log("gmcallback: Calling back to GameMaker");
                         window.gml_Script_gmcallback_google_signin(true, user.uid, user.displayName, user.email);
                     } else {
-                        console.log("GameMaker callback not found");
+                        console.log("gmcallback: GameMaker callback not found");
                     }
                     }).catch((error) => {
-                        console.error("Error logging in with Google:", error.code, error.message);
+                        console.error("gmcallback: Error logging in with Google:", error.code, error.message);
                         if (typeof window.gml_Script_gmcallback_google_signin !== "undefined") {
                             window.gml_Script_gmcallback_google_signin(false, "", "", "");
                         }
@@ -211,7 +212,10 @@
         <!-- Builtin injector for injecting runner path -->
 
         <script>window.onload = GameMaker_Init;</script>
-        <script>loginWithGoogle()</script>
+        <script>
+            // loginWithGoogle()
+            window.gmcallback()
+        </script>
         
         <!-- Builtin injector for injecting google analytics code -->
         
