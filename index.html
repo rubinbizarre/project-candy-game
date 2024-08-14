@@ -163,45 +163,47 @@
             firebase.initializeApp(firebaseConfig);
         </script>
 
-        function loginWithGoogle() {
-            var provider = new firebase.auth.GoogleAuthProvider();
-            provider.addScope('profile');
-            provider.addScope('email');
-            firebase.auth().signInWithPopup(provider)
-                .then((result) => {
-                    var token = result.credential.accessToken;
+        <script>
+            function loginWithGoogle() {
+                var provider = new firebase.auth.GoogleAuthProvider();
+                provider.addScope('profile');
+                provider.addScope('email');
+                firebase.auth().signInWithPopup(provider)
+                    .then((result) => {
+                        var token = result.credential.accessToken;
+                        var user = result.user;
+                        console.log("Google login successful:", user);
+                        // Return success to GameMaker
+                        return true;
+                    }).catch((error) => {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.error("Error logging in with Google:", errorCode, errorMessage);
+                        // Return failure to GameMaker
+                        return false;
+                    });
+            }
+    
+            window.gmcallback_loginWithGoogle = function() {
+                console.log("loginWithGoogle function called");
+                var provider = new firebase.auth.GoogleAuthProvider();
+                firebase.auth().signInWithPopup(provider).then((result) => {
                     var user = result.user;
                     console.log("Google login successful:", user);
-                    // Return success to GameMaker
-                    return true;
-                }).catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error("Error logging in with Google:", errorCode, errorMessage);
-                    // Return failure to GameMaker
-                    return false;
-                });
-        }
-
-        window.gmcallback_loginWithGoogle = function() {
-            console.log("loginWithGoogle function called");
-            var provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider).then((result) => {
-                var user = result.user;
-                console.log("Google login successful:", user);
-                if (typeof window.gml_Script_gmcallback_google_signin !== "undefined") {
-                    console.log("Calling back to GameMaker");
-                    window.gml_Script_gmcallback_google_signin(true, user.uid, user.displayName, user.email);
-                } else {
-                    console.log("GameMaker callback not found");
-                }
-                }).catch((error) => {
-                    console.error("Error logging in with Google:", error.code, error.message);
                     if (typeof window.gml_Script_gmcallback_google_signin !== "undefined") {
-                        window.gml_Script_gmcallback_google_signin(false, "", "", "");
+                        console.log("Calling back to GameMaker");
+                        window.gml_Script_gmcallback_google_signin(true, user.uid, user.displayName, user.email);
+                    } else {
+                        console.log("GameMaker callback not found");
                     }
-            });
-        }
+                    }).catch((error) => {
+                        console.error("Error logging in with Google:", error.code, error.message);
+                        if (typeof window.gml_Script_gmcallback_google_signin !== "undefined") {
+                            window.gml_Script_gmcallback_google_signin(false, "", "", "");
+                        }
+                });
+            }
+        </script
         
         <!-- Run the game code -->
         <script type="text/javascript" src="html5game/kandy killer v2.5.js?cachebust=1197812413"></script>
