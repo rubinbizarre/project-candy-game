@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!-- Custom PreHead code is injected here -->
+    
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="pragma" content="no-cache"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta charset="utf-8"/>
+        
+        <!-- Builtin injector for disabling cache -->
+        <meta http-equiv="pragma" content="no-cache"/>
+
+        <!-- Set the title bar of the page -->
+        <title>KK v2.6</title>
+
+        <!-- Custom PreStyle code is injected here -->
+
+        <!-- Set the background colour of the document -->
+        <style>
+            body {
+                background: #000000;
+                color: #000000;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                -webkit-touch-callout:none;
+                -webkit-user-select:none;
+                -khtml-user-select:none;
+                -moz-user-select:none;
+                -ms-user-select:none;
+                user-select:none;outline:0;
+            }
+
+            canvas {
+                image-rendering: optimizeSpeed;
+                -webkit-interpolation-mode: nearest-neighbor;
+                -ms-touch-action: none;
+                touch-action: none;
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                -webkit-touch-callout:none;
+                -webkit-user-select:none;
+                -khtml-user-select:none;
+                -moz-user-select:none;
+                -ms-user-select:none;
+                user-select:none;
+                outline:0;
+                -webkit-tap-highlight-color:rgba(255,255,255,0);
+            }
+            :-webkit-full-screen #canvas {
+                width: 100%;
+                height: 100%;
+            }
+            :-webkit-full-screen {
+                width: 100%;
+                height: 100%;
+            }
+            
+            /* Custom Runner Styles */
+            div.gm4html5_div_class {
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+                /* display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh; */
+            }
+            div.gm4html5_login {
+                padding: 20px;
+                position: absolute;
+                border: solid 2px #000000;
+                background-color: #404040;
+                color:#00ff00;
+                border-radius: 15px;
+                box-shadow: #101010 20px 20px 40px;
+            }
+            div.gm4html5_cancel_button {
+                float: right;
+            }
+            div.gm4html5_login_button {
+                float: left;
+            }
+            div.gm4html5_login_header {
+                text-align: center;
+            }
+            /* END - Custom Runner Styles */
+            :-webkit-full-screen {
+               width: 100%;
+               height: 100%;
+            }
+        </style>
+
+        <!-- Custom PostStyle code is injected here -->
+        
+        <!-- <script src="https://www.gstatic.com/firebasejs/10.13/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.13/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.13/firebase-database.js"></script> -->
+        
+        <!-- <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script> -->
+
+        <!-- <script src="https://accounts.google.com/gsi/client" async></script> -->
+
+        <!-- Builtin injector for injecting flurry analytics code -->
+
+    </head>
+
+    <!-- Custom PostHead code is injected here -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-89YNRX9NM7"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-89YNRX9NM7');
+    </script>
+
+    <!-- Custom PreBody code is injected here -->
+
+    <body>
+        <div class="gm4html5_div_class" id="gm4html5_div_id">
+            
+            <!-- prevent magnified preview iOS -->
+            <script>
+                document.addEventListener('touchstart', e => {
+                    e.preventDefault();
+                }, { passive: false })
+            </script>
+
+            <!-- Builtin injector for splash screen -->
+
+            <!-- Create the canvas element the game draws to -->
+            <canvas id="canvas" width="1080" height="1920" >
+                <p>Your browser doesn't support HTML5 canvas.</p>
+            </canvas>
+        </div>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+            import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyBKr3tP8roMilthOLpLzCQqOtl5EyBbQzE",
+              authDomain: "kandy-killer-app.firebaseapp.com",
+              projectId: "kandy-killer-app",
+              storageBucket: "kandy-killer-app.appspot.com",
+              messagingSenderId: "46876702406",
+              appId: "1:46876702406:web:8d502eb297bcaf66e4c9c7",
+              measurementId: "G-89YNRX9NM7"
+            };
+            
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+            
+            // Define the sign-in function
+            function signinWithGoogle() {
+                // var provider = new app.auth.GoogleAuthProvider();
+                // app.auth().signInWithPopup(provider)
+                // .then((result) => {
+                //     var token = result.credential.accessToken;
+                //     var user = result.user;
+                //     console.log("ext: Google login successful:", user);
+                //     // Call GameMaker async event with success
+                //     gml_Script_gmcallback_google_signin(1, user.uid, user.displayName, user.email);
+                // }).catch((error) => {
+                //     var errorCode = error.code;
+                //     var errorMessage = error.message;
+                //     console.error("ext: Error logging in with Google:", errorCode, errorMessage);
+                //     // Call GameMaker async event with failure
+                //     gml_Script_gmcallback_google_signin(0);
+                // });
+
+                const provider = new GoogleAuthProvider();
+                signInWithPopup(auth, provider)
+                    .then((result) => {
+                        // This gives you a Google Access Token. You can use it to access the Google API.
+                        const credential = GoogleAuthProvider.credentialFromResult(result);
+                        const token = credential.accessToken;
+                        // The signed-in user info.
+                        const user = result.user;
+                        // feedback
+                        console.log("index.html: Google login successful:", user);
+                        // Call GameMaker async event with success
+                        // gml_Script_gmcallback_google_signin(1, user.uid, user.displayName, user.email);
+                    })
+                    .catch((error) => {
+                        // Handle Errors here.
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        // The email of the user's account used.
+                        const email = error.customData.email;
+                        // The AuthCredential type that was used.
+                        const credential = GoogleAuthProvider.credentialFromError(error);
+                        // feedback
+                        console.error("index.html: Error logging in with Google:", error.code, error.message);
+                        // Call GameMaker async event with failure
+                        // gml_Script_gmcallback_google_signin(0);
+                    });
+
+                // const provider = new GoogleAuthProvider();
+                // signInWithRedirect(auth, provider);
+                // getRedirectResult(auth)
+                //     .then((result) => {
+                //         // This gives you a Google Access Token. You can use it to access Google APIs.
+                //         const credential = GoogleAuthProvider.credentialFromResult(result);
+                //         const token = credential.accessToken;
+
+                //         // The signed-in user info.
+                //         const user = result.user;
+                //         // IdP data available using getAdditionalUserInfo(result)
+                //         // ...
+                //         // feedback
+                //         console.log("index.html: Google login successful:", user, credential, token);
+                //         // Call GameMaker async event with success
+                //         //gml_Script_gmcallback_google_signin(1, user.uid, user.displayName, user.email);
+                //     }).catch((error) => {
+                //         // Handle Errors here.
+                //         const errorCode = error.code;
+                //         const errorMessage = error.message;
+                //         // The email of the user's account used.
+                //         const email = error.customData.email;
+                //         // The AuthCredential type that was used.
+                //         const credential = GoogleAuthProvider.credentialFromError(error);
+                //         // ...
+                //         console.log("index.html: Error logging in with Google:", errorCode, errorMessage, email, credential);
+                //         // Call GameMaker async event with failure
+                //         //gml_Script_gmcallback_google_signin(0);
+                //     });
+            }
+
+            // Ensure the document is loaded before attempting to run the sign-in
+            document.addEventListener("DOMContentLoaded", function() {
+                signinWithGoogle();
+            });
+        </script>
+
+        <!-- Run the game code -->
+
+        <script type="text/javascript" src="html5game/kandy killer v2.6.js?cachebust=487799833"></script>
+
+        <!-- Builtin injector for injecting runner path -->
+
+        <script>window.onload = GameMaker_Init;</script>
+
+        <!-- Builtin injector for injecting google analytics code -->
+
+    </body>
+
+    <!-- Custom PostBody code is injected here -->
+    
+</html>
