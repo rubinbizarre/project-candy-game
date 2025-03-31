@@ -16,7 +16,7 @@
         <meta http-equiv="pragma" content="no-cache"/>
 
         <!-- Set the title bar of the page -->
-        <title>v2.9</title>
+        <title>v2.9.1</title>
 
         <!-- Custom PreStyle code is injected here -->
         <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
@@ -234,16 +234,13 @@
                         // hiddenInput.style.opacity = 0;
                         // hiddenInput.style.pointerEvents = "none";
                     });
-                    
-                    // For debugging
-                    function showKeyboard() {
-                        // hiddenInput.style.pointerEvents = "auto"; // Allow interaction
-                        hiddenInput.focus();
-                    }
 
                     // Example debugging: Attach the function to game canvas element
                     // so clicking anywhere on the game activates the keyboard
-                    document.getElementById("canvas").addEventListener("click", showKeyboard);
+                    // document.getElementById("canvas").addEventListener("click", showKeyboard);
+                    document.getElementById("canvas").addEventListener("touchstart", function () {
+                        hiddenInput.focus();
+                    });
                 });
             }
         </script>
