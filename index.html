@@ -205,7 +205,7 @@
 
                     // fires when the input loses focus, but only if the value has changed
                     hiddenInput.addEventListener("change", function () {
-                        let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        //let inputValue = hiddenInput.value.trim() || "EMPTY";
                         gml_Script_gmcallback_touchtext(inputValue, 1); // validate
                     });
 
@@ -217,13 +217,12 @@
 
                     // fires with every user input while focused
                     hiddenInput.addEventListener("input", function () {
-                        let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        //let inputValue = hiddenInput.value.trim() || "EMPTY";
                         gml_Script_gmcallback_touchtext(inputValue, 0);
                     });
 
                     document.getElementById("canvas").addEventListener("touchstart", function () {
-                        let inputValue = hiddenInput.value.trim() || "EMPTY";
-                        gml_Script_gmcallback_touchtext(inputValue, 1); // validate
+                        hiddenInput.focus();
                     });
                 });
             }
