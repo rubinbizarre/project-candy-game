@@ -217,20 +217,22 @@
                     // Listen for input completion : fires when the input loses focus, but only if the value has changed
                     hiddenInput.addEventListener("change", function () {
                         let inputValue = hiddenInput.value.trim();
-                        if (inputValue !== "") {
-                            gmcallback_touchtext(inputValue);
-                            hiddenInput.value = ""; // Clear after sending
-                        }
+                        // if (inputValue !== "") {
+                        //    gmcallback_touchtext(inputValue);
+                            // hiddenInput.value = ""; // Clear after sending
+                        //}
+                        gmcallback_touchtext(inputValue);
                         // hiddenInput.style.opacity = 0;
                         // hiddenInput.style.pointerEvents = "none"; // Hide again
                     });
                     // Hide keyboard on blur : fires whenever the input loses focus, no matter what
                     hiddenInput.addEventListener("blur", function () {
                         let inputValue = hiddenInput.value.trim();
-                        if (inputValue !== "") {
-                            gmcallback_touchtext(inputValue);
-                            hiddenInput.value = ""; // Clear after sending
-                        }
+                        // if (inputValue !== "") {
+                        //   gmcallback_touchtext(inputValue);
+                            // hiddenInput.value = ""; // Clear after sending
+                        // }
+                        gmcallback_touchtext(inputValue);
                         // hiddenInput.style.opacity = 0;
                         // hiddenInput.style.pointerEvents = "none";
                     });
