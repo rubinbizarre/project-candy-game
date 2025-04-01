@@ -222,7 +222,8 @@
                     });
 
                     document.getElementById("canvas").addEventListener("touchstart", function () {
-                        hiddenInput.focus();
+                        let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        gml_Script_gmcallback_touchtext(inputValue, 1); // validate
                     });
                 });
             }
