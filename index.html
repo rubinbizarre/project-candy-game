@@ -16,7 +16,7 @@
         <meta http-equiv="pragma" content="no-cache"/>
 
         <!-- Set the title bar of the page -->
-        <title>v2.9.7</title>
+        <title>v2.9.8</title>
 
         <!-- Custom PreStyle code is injected here -->
         <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
@@ -196,6 +196,7 @@
                     hiddenInput.type = "text";
                     hiddenInput.id = "touchTextInput";
                     hiddenInput.style.position = "absolute";
+                    hiddenInput.style.zIndex = "999";
                     hiddenInput.autocomplete = "off";            
                     document.body.appendChild(hiddenInput);
 
@@ -205,7 +206,7 @@
 
                     // fires when the input loses focus, but only if the value has changed
                     hiddenInput.addEventListener("change", function () {
-                        //let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        let inputValue = hiddenInput.value.trim() || "EMPTY";
                         gml_Script_gmcallback_touchtext(inputValue, 1); // validate
                     });
 
@@ -217,7 +218,7 @@
 
                     // fires with every user input while focused
                     hiddenInput.addEventListener("input", function () {
-                        //let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        let inputValue = hiddenInput.value.trim() || "EMPTY";
                         gml_Script_gmcallback_touchtext(inputValue, 0);
                     });
 
