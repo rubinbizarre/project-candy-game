@@ -16,7 +16,7 @@
         <meta http-equiv="pragma" content="no-cache"/>
 
         <!-- Set the title bar of the page -->
-        <title>v2.9.3</title>
+        <title>v2.9.4</title>
 
         <!-- Custom PreStyle code is injected here -->
         <link rel="icon" type="image/png" sizes="16x16" href="./icons/favicon-16x16.png">
@@ -187,59 +187,40 @@
         </script>
 
         <script>
-            // Function to detect mobile browser
             function isMobile() {
                 return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
-
-            // Only run if the user is on a mobile browser
             if (isMobile()) {
                 document.addEventListener("DOMContentLoaded", function () {
-                    // Create hidden input field
                     let hiddenInput = document.createElement("input");
-                    hiddenInput.type = "text"; // default value for <input> type
+                    hiddenInput.type = "text";
                     hiddenInput.id = "touchTextInput";
                     hiddenInput.style.position = "absolute";
-                    // hiddenInput.style.opacity = 0;  // Make it invisible
-                    // hiddenInput.style.pointerEvents = "none"; // Prevent accidental clicks
-                    // hiddenInput.autocapitalize = "none"; // doesn't seem to be a real attribute of <input>
-                    hiddenInput.autocomplete = "off";
-                    // hiddenInput.spellcheck = false; // doesn't seem to be a real attribute of <input>
-                    
+                    hiddenInput.autocomplete = "off";            
                     document.body.appendChild(hiddenInput);
 
-                    // Make input field interactive when tapped
                     hiddenInput.addEventListener("touchstart", function () {
-                        // hiddenInput.style.pointerEvents = "auto"; // Allow interaction
-                        // hiddenInput.style.opacity = 1; // Make it momentarily visible
                         hiddenInput.focus();
                     });
-                    // Listen for input completion : fires when the input loses focus, but only if the value has changed
+
+                    // fires when the input loses focus, but only if the value has changed
                     hiddenInput.addEventListener("change", function () {
-                        let inputValue = hiddenInput.value.trim();
-                        // if (inputValue !== "") {
-                        //    gmcallback_touchtext(inputValue);
-                            // hiddenInput.value = ""; // Clear after sending
-                        //}
-                        gml_Script_gmcallback_touchtext(inputValue);
-                        // hiddenInput.style.opacity = 0;
-                        // hiddenInput.style.pointerEvents = "none"; // Hide again
-                    });
-                    // Hide keyboard on blur : fires whenever the input loses focus, no matter what
-                    hiddenInput.addEventListener("blur", function () {
-                        let inputValue = hiddenInput.value.trim();
-                        // if (inputValue !== "") {
-                        //   gmcallback_touchtext(inputValue);
-                            // hiddenInput.value = ""; // Clear after sending
-                        // }
-                        gml_Script_gmcallback_touchtext(inputValue);
-                        // hiddenInput.style.opacity = 0;
-                        // hiddenInput.style.pointerEvents = "none";
+                        let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        gml_Script_gmcallback_touchtext(inputValue, 1); // validate
                     });
 
-                    // Example debugging: Attach the function to game canvas element
-                    // so clicking anywhere on the game activates the keyboard
-                    // document.getElementById("canvas").addEventListener("click", showKeyboard);
+                    // fires whenever the input loses focus, no matter what
+                    // hiddenInput.addEventListener("blur", function () {
+                    //     let inputValue = hiddenInput.value.trim() || "EMPTY";
+                    //     gml_Script_gmcallback_touchtext(inputValue);
+                    // });
+
+                    // fires with every user input while focused
+                    hiddenInput.addEventListener("input", function () {
+                        let inputValue = hiddenInput.value.trim() || "EMPTY";
+                        gml_Script_gmcallback_touchtext(inputValue, 0);
+                    });
+
                     document.getElementById("canvas").addEventListener("touchstart", function () {
                         hiddenInput.focus();
                     });
